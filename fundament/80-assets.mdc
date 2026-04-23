@@ -64,13 +64,13 @@ globs:
 
 ## Licensing / attribution
 - `LICENSES.md` w repo — lista WSZYSTKICH niestandardowych assetów: licencja + źródło + data.
-- Format:
-	```
-	### /public/hdr/studio.hdr
-	Source: https://polyhaven.com/a/studio_small_09
-	License: CC0 1.0
-	Downloaded: 2026-04-15
-	```
+- Format (wpis w `LICENSES.md`):
+
+  ### /public/hdr/studio.hdr
+  Source: https://polyhaven.com/a/studio_small_09
+  License: CC0 1.0
+  Downloaded: 2026-04-15
+
 - **CC0** (Polyhaven, Unsplash, Pexels) — free commercial, attribution nie wymagane ale dobra praktyka.
 - **CC-BY** — credits w stopce albo na `/credits`.
 - **Proprietary** (Iconsax Pro, Adobe Stock) — seat license + numer seryjny w Doppler (nie w repo).
