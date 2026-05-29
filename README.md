@@ -1,17 +1,20 @@
 # cursor-rules
 
-Reguły Cursora (`.mdc`) dla projektów Syntance. Źródło prawdy — konsumowane w projektach przez `degit` do katalogu `.cursor/rules/`.
+Reguły Cursora (`.mdc`) dla projektów Syntance. Źródło prawdy — konsumowane per **projekt** (`degit` → `.cursor/rules/`) albo globalnie jako **User Rules** (`~/.cursor/rules/`).
 
 ## Struktura
 
 ```
 cursor-rules/
-├── fundament/          # 12 reguł — dowolny projekt Next.js + React
+├── fundament/          # 15 reguł — dowolny projekt Next.js + React (+ konwersja, rendering, e-commerce)
 │   ├── 00-core.mdc
 │   ├── 10-stack.mdc
+│   ├── 15-rendering.mdc
 │   ├── 20-design.mdc
+│   ├── 25-conversion.mdc
 │   ├── 30-motion.mdc
 │   ├── 40-3d.mdc
+│   ├── 45-commerce.mdc
 │   ├── 50-perf-a11y.mdc
 │   ├── 55-security.mdc
 │   ├── 56-legal.mdc
@@ -19,23 +22,59 @@ cursor-rules/
 │   ├── 70-copy.mdc
 │   ├── 80-assets.mdc
 │   └── 90-release.mdc
-└── medusa/             # 9 reguł — projekty ecommerce na Medusa v2
-    ├── 00-ecom-core.mdc
-    ├── 20-ecom-design.mdc
-    ├── cart-state.mdc
-    ├── medusa-sdk.mdc
-    ├── checkout-forms.mdc
-    ├── payment-flow.mdc
-    ├── shipping.mdc
-    ├── order-pipeline.mdc
-    └── inventory.mdc
+├── medusa/             # 9 reguł — projekty ecommerce na Medusa v2
+└── scripts/            # instalacja User Rules (macOS / Windows / Linux)
+    ├── patch-cursor-user-rules.js
+    ├── sync-user-rules.sh
+    └── sync-user-rules.ps1
 ```
 
-## Użycie w nowym projekcie
+## User Rules (globalnie, wszystkie projekty)
+
+**Problem:** Cursor domyślnie pokazuje w **Settings → Rules → User** tylko reguły wpisane w UI. Pliki w `~/.cursor/rules/` **nie są skanowane** bez patcha rozszerzenia `cursor-agent-exec`.
+
+**Rozwiązanie:** skopiuj `fundament/` do `~/.cursor/rules/` + uruchom patch (jednorazowo; powtórz po aktualizacji Cursora).
+
+### macOS / Linux
+
+```bash
+git clone https://github.com/Syntance/cursor-rules.git /tmp/cursor-rules
+chmod +x /tmp/cursor-rules/scripts/sync-user-rules.sh
+/tmp/cursor-rules/scripts/sync-user-rules.sh
+```
+
+Jeśli patch zwróci błąd uprawnień do `/Applications/Cursor.app`:
+
+```bash
+sudo node /tmp/cursor-rules/scripts/patch-cursor-user-rules.js
+```
+
+Potem w Cursorze: **Cmd+Shift+P → Developer: Reload Window** → **Settings → Rules → User** (powinno być 15 User File Rules).
+
+### Windows
+
+```powershell
+git clone https://github.com/Syntance/cursor-rules.git $env:TEMP\cursor-rules
+& "$env:TEMP\cursor-rules\scripts\sync-user-rules.ps1"
+```
+
+Potem: **Ctrl+Shift+P → Developer: Reload Window**.
+
+### Ręcznie (bez skryptu)
+
+```bash
+mkdir -p ~/.cursor/rules
+cp fundament/*.mdc ~/.cursor/rules/
+node scripts/patch-cursor-user-rules.js
+```
+
+Reguły muszą leżeć w **`~/.cursor/rules/`** (nie w `~/.cursor/` ani w repo projektu).
+
+## Użycie w nowym projekcie (Project Rules)
 
 ### Strona (portfolio / landing / content)
 
-Tylko fundament (12 reguł):
+Tylko fundament (15 reguł):
 
 ```bash
 pnpm dlx degit Syntance/cursor-rules/fundament .cursor/rules
@@ -43,33 +82,29 @@ pnpm dlx degit Syntance/cursor-rules/fundament .cursor/rules
 
 ### Sklep (Medusa v2 + storefront)
 
-Fundament + Medusa (21 reguł razem w jednym `.cursor/rules/`):
+Fundament + Medusa:
 
 ```bash
 pnpm dlx degit Syntance/cursor-rules/fundament .cursor/rules
 pnpm dlx degit Syntance/cursor-rules/medusa    .cursor/rules
 ```
 
-Lub jednym strzałem przez skrypt bootstrap (patrz Notion → Setup — skrypt bootstrap).
-
 ## Aktualizacje
 
-Reguły są wersjonowane przez commity w tym repo. Konsumenckie projekty mogą:
+- **User Rules:** ponownie uruchom `scripts/sync-user-rules.sh` (lub `.ps1` na Windows).
+- **Project Rules:** re-run `degit` (nadpisuje lokalne) lub merge ręczny.
 
-- Re-run `degit` aby zaciągnąć aktualną wersję (nadpisuje lokalne).
-- Forkować regułę lokalnie — wtedy przy kolejnym `degit` zrobić merge ręcznie.
-
-Zmiany filozofii (np. nowy framework, nowe benchmark studios) → PR do tego repo + ADR w `docs/adr/`.
+Zmiany filozofii → PR do tego repo + ADR w `docs/adr/`.
 
 ## Jak reguły działają w Cursorze
 
 - Pliki `.mdc` z frontmatterem YAML.
-- `alwaysApply: true` — reguła aktywna zawsze.
-- `globs: [...]` — reguła aktywna tylko dla plików pasujących do glob.
-- Cursor czyta reguły przy każdym zapytaniu — mniej szumu = lepsza pamięć AI.
+- `alwaysApply: true` — reguła aktywna zawsze (tylko `00-core` w fundament).
+- `globs: [...]` — reguła gdy pasujące pliki są otwarte.
+- `description` bez `alwaysApply` — **Apply Intelligently** (agent ładuje gdy temat pasuje).
 
 ## Benchmark
 
-Reguły fundamentu pisane pod agency-tier work. Benchmark studios: Active Theory, Resn, Locomotive, Obys, Igloo Inc., Basement, Immersive Garden.
+Fundament: Active Theory, Resn, Locomotive, Obys, Igloo Inc., Basement, Immersive Garden (+ konwersja: Stripe, Linear, Vercel).
 
-Reguły medusy pisane pod PL/EU ecommerce w klasie: Aimé Leon Dore, Kith, APC, Frankie Shop, Allbirds, Gymshark.
+Medusa: Aimé Leon Dore, Kith, APC, Frankie Shop, Allbirds, Gymshark.
