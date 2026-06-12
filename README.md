@@ -23,6 +23,9 @@ cursor-rules/
 │   ├── 80-assets.mdc
 │   └── 90-release.mdc
 ├── medusa/             # 9 reguł — projekty ecommerce na Medusa v2
+├── magazyn/            # 2 reguły — panel „Magazyn" + CMS (moduł Syntance/moduly)
+│   ├── magazyn-panel.mdc
+│   └── cms-content.mdc
 └── scripts/            # instalacja User Rules (macOS / Windows / Linux)
     ├── patch-cursor-user-rules.js
     ├── sync-user-rules.sh
@@ -87,6 +90,14 @@ Fundament + Medusa:
 ```bash
 pnpm dlx degit Syntance/cursor-rules/fundament .cursor/rules
 pnpm dlx degit Syntance/cursor-rules/medusa    .cursor/rules
+```
+
+### Sklep z panelem „Magazyn" + CMS (moduł Syntance/moduly)
+
+Dodatkowo, gdy wpinasz pakiet `magazyn` (panel admina + CMS na `Store.metadata`):
+
+```bash
+pnpm dlx degit Syntance/cursor-rules/magazyn .cursor/rules
 ```
 
 ## Aktualizacje
