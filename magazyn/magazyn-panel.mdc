@@ -26,6 +26,7 @@ JWT Medusa Admin w cookie httpOnly. Pakiet wzorcowy: `Syntance/moduly`.
 - `core/auth/`: login email/Google, `requireAdminSession`, `allowlist`, `login-rate-limit`,
   `session` (cookie httpOnly, `secure` w prod, `sameSite: lax`).
 - `core/audit/audit-log.ts`: `recordAudit(action, { target })` — audit trail mutacji.
+- `core/storage/`: `uploadCmsAssetFile`, `uploadProductFile`, `resolveCmsAssetUrl` (R2/CDN).
 - `middleware.ts`: tania bramka na krawędzi (obecność cookie na `/<basePath>/panel/**`).
 - `loadAdmin` / `requireAdminSession`: właściwa walidacja (ważność JWT + allowlist).
 
