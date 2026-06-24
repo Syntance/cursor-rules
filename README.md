@@ -22,7 +22,7 @@ cursor-rules/
 │   ├── 70-copy.mdc
 │   ├── 80-assets.mdc
 │   └── 90-release.mdc
-├── medusa/             # 9 reguł — projekty ecommerce na Medusa v2
+├── medusa/             # 11 reguł — projekty ecommerce na Medusa v2 (w tym checkout standards)
 ├── magazyn/            # 3 reguły — panel „Magazyn" + CMS + pliki (moduł Syntance/moduly)
 │   ├── magazyn-panel.mdc
 │   ├── cms-content.mdc
@@ -100,6 +100,17 @@ Dodatkowo, gdy wpinasz pakiet `magazyn` (panel admina + CMS na `Store.metadata`)
 ```bash
 pnpm dlx degit Syntance/cursor-rules/magazyn .cursor/rules
 ```
+
+## Checkout standards
+
+Checkout i bramki płatnicze mają osobny, twardy kontrakt (utwardzony na incydentach produkcyjnych) — by każdy nowy sklep dostawał TEN SAM, zabezpieczony checkout:
+
+- `medusa/46-checkout-standards.mdc` — skonsolidowany standard: 5 torów domknięcia płatności, kontrakt adaptera bramki, idempotencja sesji, self-healing reconcile (endpoint + cron niezależny od workera), security/CSP, compliance PL/EU, Turnstile za flagą, „Częste bugi i fixy".
+- `medusa/payment-flow.mdc` — moduł providera (`modules/<provider>`), webhooki (wbudowana deduplikacja Medusa v2), maszyna stanów, reconcile.
+- `medusa/checkout-forms.mdc` — formularz: Zod/RHF, double-submit guard, slow-state, sanitize bez dompurify, Turnstile gated.
+- `medusa/checkout-clone-playbook.mdc` — krok po kroku jak postawić checkout kopiując z `Syntance/moduly` + manifest ENV + checklist deploy.
+
+Kod referencyjny (kopiuj stamtąd): `Syntance/moduly` (`packages/commerce`, `apps/backend`).
 
 ## Aktualizacje
 
