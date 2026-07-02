@@ -58,11 +58,22 @@ updated: 2026-05
 - **VoiceOver** macOS (Safari), **NVDA** Windows (Firefox), **TalkBack** Android (Chrome).
 - Scenariusz: hero headline, nav, forms, modale, dynamic content (toast).
 
+## Pętla audytu PageSpeed (proces, nie jednorazowo)
+- Lab: Lighthouse / **Chrome DevTools MCP** (lub Cloudflare web-perf) w CI/staging. Field/RUM: **Vercel Speed Insights** + PostHog Web Vitals.
+- Diagnozuj: render-blocking, długie taski (Long Tasks API → Sentry), łańcuchy zależności, layout shift, cache/compression.
+- Popraw → zmierz ponownie. Traktuj CWV jako budżet gate'owany w PR (regresja LCP/INP blokuje merge).
+
 ## SEO (techniczne — copy w 70-copy)
 - Metadata API w każdym `page.tsx` / `layout.tsx` (`generateMetadata`).
 - OG image 1200×630 przez `opengraph-image.tsx` (Satori). Twitter card: `summary_large_image`.
-- JSON-LD: Organization, WebSite, Product (e-commerce → 45-commerce), BreadcrumbList, Article (blog).
+- JSON-LD: Organization, WebSite, Product (e-commerce → 45-commerce), BreadcrumbList, Article (blog), FAQPage/HowTo, LocalBusiness (lokalny).
 - Sitemap + robots z App Router (`app/sitemap.ts`, `app/robots.ts`). Canonical tags na wszystkich stronach.
+
+## GEO (Generative Engine Optimization — widoczność w AI)
+- **`llms.txt`** w root: mapa kluczowych treści dla modeli (ChatGPT / Perplexity / Google AI Overviews). Opcjonalnie `llms-full.txt`.
+- Treść **answer-ready**: nagłówki-pytania, zwięzła definicja/odpowiedź na początku sekcji, dane w listach/tabelach (łatwe do cytowania przez AI).
+- Bogate dane strukturalne (JSON-LD FAQ/HowTo/Article) — silniki AI preferują je jako źródło. E-E-A-T: autorstwo, źródła, data aktualizacji.
+- Świadoma decyzja o botach AI w `robots` (blokada vs widoczność). Kod referencyjny: `Syntance/moduly` → `packages/seo-geo`.
 
 ## i18n a11y (gdy > 1 język)
 - `<html lang="pl">` default, dynamiczne per locale (`[locale]` segment + `generateStaticParams`).

@@ -1,0 +1,34 @@
+---
+description: Strategia biznesowa B2B (podejście Szymon Negacz / SellWise) — specjalizacja, ICP, edukacja rynku, marketing treści (TOFU/MOFU/BOFU), lead-gen zamiast hard-sellu, alignment sprzedaż-marketing. Ładuj gdy projektujesz stronę usługową/firmową B2B, ofertę, sekcję o nas, blog, ścieżkę pozyskania leada.
+updated: 2026-07
+---
+
+Dla stron usługowych i B2B (sklepy B2C → 25-conversion). Strona to narzędzie edukacji rynku i pozyskiwania leadów, nie broszura.
+
+## Fundament strategiczny (PRZED strukturą strony)
+- **Specjalizacja / niszowanie**: dla kogo dokładnie i w czym jesteśmy najlepsi. „Wszystko dla wszystkich” = brak pozycji. Wąska nisza wygrywa.
+- **ICP**: branża, wielkość, rola decydenta, budżet, sytuacja wyzwalająca zakup.
+- **Pozycjonowanie**: jedno zdanie „jesteśmy X dla Y, którzy chcą Z, w odróżnieniu od W".
+- **Realny problem klienta**: oferta odpowiada na palący problem, nie opisuje features firmy. Język korzyści klienta.
+
+## Edukacja rynku (rdzeń)
+- Większość rynku NIE kupi dziś. Strona edukuje, buduje zaufanie i „dogrzewa”.
+- Treść pod etap świadomości ICP:
+  - **TOFU** (nieświadomy problemu): edukacja, nazwanie problemu, „dlaczego to boli”.
+  - **MOFU** (szuka rozwiązań): porównania podejść, case studies, metodologia, lead magnety/webinary.
+  - **BOFU** (wybiera dostawcę): oferta, proces współpracy, dowód (wyniki/referencje), konsultacja/wycena.
+- Content-led inbound: blog/wiedza jako aktywo SEO/GEO (50-perf-a11y), nie ozdoba.
+
+## Struktura strony usługowej B2B
+- Hero: dla kogo + jaki problem + dowód (nie slogan-zagadka).
+- Problem (empatia, nazwanie bólu) → podejście/metoda → dowód (case, liczby, logo) → proces współpracy → oferta/pakiety → FAQ (obiekcje) → CTA konsultacja.
+- Primary conversion action B2B: umów konsultację / pobierz materiał / zostaw kontakt — NIE „kup teraz”.
+- Formularz leada krótki (email + kontekst). Lead magnet > zimny formularz.
+
+## Sprzedaż + marketing (alignment)
+- Wspólna definicja leada (MQL/SQL) i wspólne cele. Marketing dogrzewa, sprzedaż domyka.
+- Mierz jakość leadów, nie tylko ilość. Event taxonomy: `content_view`, `lead_magnet_download`, `consultation_request`, `proposal_sent`.
+
+## Czego NIE robić
+- Bez manipulacji i fake urgency (sprzeczne z DSA — 56-legal — i z długoterminowym zaufaniem).
+- Bez korporacyjnego żargonu. Konkret, liczby, realne case'y. Transparentność ceny/procesu sprzedaje w B2B.

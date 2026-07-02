@@ -6,12 +6,14 @@ Reguły Cursora (`.mdc`) dla projektów Syntance. Źródło prawdy — konsumowa
 
 ```
 cursor-rules/
-├── fundament/          # 15 reguł — dowolny projekt Next.js + React (+ konwersja, rendering, e-commerce)
+├── fundament/          # 17 reguł — dowolny projekt Next.js + React (+ konwersja, strategia B2B, rendering, e-commerce)
 │   ├── 00-core.mdc
+│   ├── 05-graphify.mdc # graph-first debug/refaktor/planowanie (kontrola kosztów agentów)
 │   ├── 10-stack.mdc
 │   ├── 15-rendering.mdc
 │   ├── 20-design.mdc
 │   ├── 25-conversion.mdc
+│   ├── 26-strategy-b2b.mdc
 │   ├── 30-motion.mdc
 │   ├── 40-3d.mdc
 │   ├── 45-commerce.mdc
@@ -122,7 +124,7 @@ Zmiany filozofii → PR do tego repo + ADR w `docs/adr/`.
 ## Jak reguły działają w Cursorze
 
 - Pliki `.mdc` z frontmatterem YAML.
-- `alwaysApply: true` — reguła aktywna zawsze (tylko `00-core` w fundament).
+- `alwaysApply: true` — reguła aktywna zawsze (`00-core` i `05-graphify` w fundament).
 - `globs: [...]` — reguła gdy pasujące pliki są otwarte.
 - `description` bez `alwaysApply` — **Apply Intelligently** (agent ładuje gdy temat pasuje).
 
