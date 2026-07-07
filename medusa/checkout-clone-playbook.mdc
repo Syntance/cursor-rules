@@ -1,8 +1,8 @@
 ---
 description: Playbook — jak zaimplementować utwardzony checkout w nowym sklepie kopiując z Syntance/moduly. Ładuj gdy stawiasz checkout od zera lub podpinasz nową bramkę.
 globs:
-  - "apps/*/app/**/checkout/**"
-  - "apps/backend/src/modules/**"
+  - "**/app/**/checkout/**"
+  - "**/backend/src/modules/**"
 ---
 
 # Checkout Clone Playbook

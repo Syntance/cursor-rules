@@ -1,8 +1,8 @@
 ---
 description: Medusa SDK — singleton, proxy, timeouty, typed errors
 globs:
-  - "apps/storefront/src/lib/medusa/**"
-  - "apps/storefront/src/app/api/medusa/**"
+  - "**/lib/medusa/**"
+  - "**/app/api/medusa/**"
 ---
 
 ## Kontrakt klienta

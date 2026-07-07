@@ -6,8 +6,9 @@ Reguły Cursora (`.mdc`) dla projektów Syntance. Źródło prawdy — konsumowa
 
 ```
 cursor-rules/
-├── fundament/          # 17 reguł — dowolny projekt Next.js + React (+ konwersja, strategia B2B, rendering, e-commerce)
+├── fundament/          # 18 reguł — dowolny projekt Next.js + React (+ konwersja, strategia B2B, rendering, e-commerce)
 │   ├── 00-core.mdc
+│   ├── 02-agent-discipline.mdc # dyscyplina agenta: weryfikacja, root cause, akcje destrukcyjne, ochrona danych
 │   ├── 05-graphify.mdc # graph-first debug/refaktor/planowanie (kontrola kosztów agentów)
 │   ├── 10-stack.mdc
 │   ├── 15-rendering.mdc
@@ -55,7 +56,7 @@ Jeśli patch zwróci błąd uprawnień do `/Applications/Cursor.app`:
 sudo node /tmp/cursor-rules/scripts/patch-cursor-user-rules.js
 ```
 
-Potem w Cursorze: **Cmd+Shift+P → Developer: Reload Window** → **Settings → Rules → User** (powinno być 15 User File Rules).
+Potem w Cursorze: **Cmd+Shift+P → Developer: Reload Window** → **Settings → Rules → User** (powinno być 18 User File Rules).
 
 ### Windows
 
@@ -80,7 +81,7 @@ Reguły muszą leżeć w **`~/.cursor/rules/`** (nie w `~/.cursor/` ani w repo p
 
 ### Strona (portfolio / landing / content)
 
-Tylko fundament (15 reguł):
+Tylko fundament (18 reguł):
 
 ```bash
 pnpm dlx degit Syntance/cursor-rules/fundament .cursor/rules
@@ -114,10 +115,20 @@ Checkout i bramki płatnicze mają osobny, twardy kontrakt (utwardzony na incyde
 
 Kod referencyjny (kopiuj stamtąd): `Syntance/moduly` (`packages/commerce`, `apps/backend`).
 
+## Narzędzia MCP dla Cursora (wymagane przez reguły)
+
+Reguły odwołują się do narzędzi — podepnij w Cursor Settings → MCP:
+
+- **21st.dev Magic** (`/ui "opis"`) — generowanie komponentów UI (10-stack).
+- **context7** — aktualne API bibliotek zamiast zgadywania wersji (02-agent-discipline).
+- **Playwright MCP** — live E2E i testy a11y (60-quality).
+- **Chrome DevTools MCP** — pętla audytu PageSpeed / Core Web Vitals (50-perf-a11y).
+
 ## Aktualizacje
 
 - **User Rules:** ponownie uruchom `scripts/sync-user-rules.sh` (lub `.ps1` na Windows).
 - **Project Rules:** re-run `degit` (nadpisuje lokalne) lub merge ręczny.
+- **05-graphify:** źródłem prawdy jest `fundament/05-graphify.mdc`; `.cursor/rules/graphify.mdc` (kopia dla tego repo) synchronizuj przy każdej zmianie.
 
 Zmiany filozofii → PR do tego repo + ADR w `docs/adr/`.
 

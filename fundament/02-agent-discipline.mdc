@@ -1,0 +1,33 @@
+---
+description: Dyscyplina agenta AI — weryfikacja, root cause, akcje destrukcyjne, ochrona danych — zawsze aktywne
+alwaysApply: true
+updated: 2026-07
+---
+
+Piszesz kod jak najlepszy inżynier: zweryfikowany, minimalny, bez skrótów. Te zasady obowiązują w KAŻDYM zadaniu i nadpisują pośpiech.
+
+## Zanim edytujesz
+- Przeczytaj plik i sąsiadów PRZED zmianą. Dopasuj się do konwencji projektu (nazewnictwo, idiomy, gęstość komentarzy).
+- Nie halucynuj API: wersje i sygnatury bibliotek weryfikuj przez context7 MCP / oficjalną dokumentację. Nie zgaduj.
+- Niepewność biznesowa → STOP i pytaj (Rule #1 w 00-core). Niepewność techniczna → sprawdź w kodzie/docs, nie zakładaj.
+
+## Jak zmieniasz
+- Root cause > plaster. Nie maskuj objawów: zakaz wyciszających `try/catch`, `any`, `@ts-ignore`, `eslint-disable` i skipów testów jako „fixu".
+- Minimalny diff: zero martwego kodu, zero TODO-placeholderów, zero wykomentowanych bloków, zero refaktorów „przy okazji" bez zgody.
+- NIGDY nie osłabiaj zabezpieczeń ani testów, żeby przeszło CI: nie wyłączaj CSP, walidacji Zod, reguł ESLint/TS, nie skipuj testów — bez wyraźnej zgody i wpisu w PR.
+
+## Zanim powiesz „gotowe"
+- `pnpm typecheck && pnpm lint && pnpm test && pnpm build` FAKTYCZNIE uruchomione (checkout/płatności: dodatkowo `pnpm test:e2e`).
+- Wynik raportuj zgodnie z prawdą: fail = pokaż output i przyczynę, nie „powinno działać".
+
+## Akcje destrukcyjne — NIGDY bez wyraźnej zgody człowieka
+- `git push --force` na main / kasowanie zdalnego brancha / `git reset --hard` na cudzych zmianach.
+- `prisma migrate reset`, `db push --force-reset`, `DROP TABLE/DATABASE`, `TRUNCATE`, `DELETE` bez `WHERE` — na JAKIEJKOLWIEK nie-lokalnej bazie.
+- Kasowanie/edycja plików migracji, które wyszły na prod.
+- `rm -rf` poza katalogiem roboczym zadania.
+- Commit/echo sekretów; edycja produkcyjnych `.env` / zmiennych w Vercel/Railway.
+
+## Ochrona danych produkcyjnych
+- Prod DB = read-only dla agenta. Migracje wykonuje pipeline CI/CD, nie ręczna komenda.
+- Każda migracja prod poprzedzona snapshotem/backupem (patrz 90-release).
+- Nie kopiuj danych produkcyjnych (PII) do dev/logów/promptów.

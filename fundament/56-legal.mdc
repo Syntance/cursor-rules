@@ -56,6 +56,14 @@ Każdy user w UE ma prawo do:
 - **Trusted flaggers**: procedura zgłaszania nielegalnych treści.
 - Zakaz **dark patterns** w designie: fałszywe timery, fake urgency („Zostało 2 min!"), ukryte subskrypcje, confirmshaming.
 
+## GPSR — General Product Safety Regulation (od 13.12.2024)
+- Sklep z produktami fizycznymi: przy każdym produkcie dane producenta LUB osoby odpowiedzialnej w UE (nazwa, adres pocztowy, e-mail) + ostrzeżenia/informacje bezpieczeństwa w języku konsumenta.
+- Dotyczy też marketplace/dropshippingu — bez osoby odpowiedzialnej w UE produkt nie może być oferowany w UE.
+
+## AI Act — transparentność (gdy strona używa AI)
+- Chatbot AI: poinformuj wprost, że użytkownik rozmawia z AI (nie udawaj człowieka).
+- Treści syntetyczne / generowane AI (np. wizerunki osób): oznaczaj tam, gdzie wymagane.
+
 ## Ustawa o świadczeniu usług drogą elektroniczną (PL)
 - **Regulamin** obowiązkowy — udostępniony nieodpłatnie + możliwy do pobrania (PDF).
 - **Zgoda marketingowa** osobno od regulaminu (nie „pakiet" — UODO traktuje jako dark pattern).

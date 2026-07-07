@@ -1,11 +1,11 @@
 ---
 description: Performance (Core Web Vitals), a11y (WCAG 2.2 AA), SEO
 globs:
-  - "src/**/*.tsx"
-  - "src/**/*.ts"
-  - "src/styles/**/*.css"
-  - "src/app/globals.css"
-  - "next.config.ts"
+  - "**/src/**/*.tsx"
+  - "**/src/**/*.ts"
+  - "**/src/styles/**/*.css"
+  - "**/src/app/globals.css"
+  - "**/next.config.ts"
 updated: 2026-05
 ---
 

@@ -1,9 +1,9 @@
 ---
 description: Ecom design — layout sklepu, PDP, cart drawer, product grid
 globs:
-  - "apps/storefront/src/components/product/**"
-  - "apps/storefront/src/components/cart/**"
-  - "apps/storefront/src/app/(shop)/**"
+  - "**/components/product/**"
+  - "**/components/cart/**"
+  - "**/app/(shop)/**"
 ---
 
 ## Cart drawer (NIE modal)

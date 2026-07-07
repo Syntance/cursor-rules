@@ -1,10 +1,10 @@
 ---
 description: Płatności — moduły, webhooki, maszyna stanów, idempotency, reconcile
 globs:
-  - "apps/backend/src/modules/**"
-  - "apps/backend/src/api/store/custom/*reconcile*/**"
-  - "apps/backend/src/jobs/reconcile-*"
-  - "apps/backend/src/workflows/payment-*/**"
+  - "**/backend/src/modules/**"
+  - "**/backend/src/api/store/custom/*reconcile*/**"
+  - "**/backend/src/jobs/reconcile-*"
+  - "**/backend/src/workflows/payment-*/**"
 ---
 
 > Pełny standard checkoutu (5 torów domknięcia, kontrakt adaptera, security, compliance): `46-checkout-standards.mdc`. Kod referencyjny: `Syntance/moduly` (`apps/backend/src/modules/<provider>`).

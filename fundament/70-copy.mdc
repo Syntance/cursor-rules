@@ -1,9 +1,9 @@
 ---
 description: Copy discipline — voice, hierarchia, CTA
 globs:
-  - "src/**/*.tsx"
-  - "src/**/*.mdx"
-  - "content/**/*"
+  - "**/src/**/*.tsx"
+  - "**/src/**/*.mdx"
+  - "**/content/**/*"
 updated: 2026-05
 ---
 

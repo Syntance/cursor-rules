@@ -1,9 +1,9 @@
 ---
 description: Design system — paleta, typografia, spacing, shadow, ikony
 globs:
-  - "src/**/*.tsx"
-  - "src/styles/**/*.css"
-  - "src/app/globals.css"
+  - "**/src/**/*.tsx"
+  - "**/src/styles/**/*.css"
+  - "**/src/app/globals.css"
 updated: 2026-05
 ---
 
@@ -72,3 +72,12 @@ updated: 2026-05
 - `@media (forced-colors: active)` — fallback bez gradientów, `SystemColor` tokens.
 - `@media (prefers-reduced-transparency)` — backdrop-blur → plain bg.
 - `@media (prefers-contrast: more)` — zwiększ kontrast ink vs surface.
+
+## SOTD self-review (gate przed oddaniem strony)
+Samoocena wg kryteriów jury Awwwards — Design 40 / Usability 30 / Creativity 20 / Content 10:
+- Jest DOKŁADNIE jeden zapadający w pamięć moment; wszystko inne go wspiera.
+- Motion identity spójna: 2–3 sygnaturowe ruchy z briefu używane konsekwentnie (patrz 30-motion).
+- Interaction inventory: KAŻDY interaktywny element ma hover/focus/active z motion, nie tylko primary CTA.
+- Typografia działa jako element designu (skala, kontrast wag, detale OpenType), nie tylko nośnik tekstu.
+- Art direction fotografii spójna (grading spec) — zero surowego stocka.
+- Usability nietknięta: keyboard path + task completion na ścieżce konwersji.

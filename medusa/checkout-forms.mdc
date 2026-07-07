@@ -1,9 +1,9 @@
 ---
 description: Checkout — schemat Zod, RHF, step state, complete flow, double-submit
 globs:
-  - "apps/*/app/**/checkout/**"
-  - "apps/*/components/checkout/**"
-  - "apps/*/lib/validation/checkout*.ts"
+  - "**/app/**/checkout/**"
+  - "**/components/checkout/**"
+  - "**/lib/validation/checkout*.ts"
   - "packages/commerce/**"
 ---
 
@@ -47,6 +47,7 @@ Jeden schemat Zod w `lib/validation/checkout.ts` (lub `packages/commerce`), impo
 - Conversion lift: +15–25% mobile, +5–10% desktop (Stripe benchmark 2025).
 - MUST: HTTPS + domain verification w Stripe Dashboard (Apple Pay tego wymaga).
 - Flow: click → native sheet → `stripe.confirmPayment` → `completeCart` inline (bez redirectu).
+- Złota zasada obowiązuje: order tworzy WYŁĄCZNIE `completeCart` po potwierdzeniu płatności — nigdy sam frontend po evencie native sheet (patrz 46-checkout-standards §0).
 - Fallback: jeśli device nie supportuje → Element się nie renderuje (zero działania od nas).
 
 ## Address autocomplete

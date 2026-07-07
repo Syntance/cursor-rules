@@ -57,10 +57,19 @@ updated: 2026-05
 ## Secrets rotation
 - Kwartalnie wszystkie API keys. Immediate przy leak / odejściu pracownika / podejrzanej aktywności. Doppler / Vercel ENV audit log co miesiąc.
 
-## Backup strategy
-- **DB** (Railway/Neon): daily automated + retention 30 dni + weekly full export do S3/R2 (niezależny cloud).
+## Backup strategy (RPO per klasa projektu)
+- **Sklep / aplikacja transakcyjna**: PITR/WAL (Neon point-in-time restore, Railway wal-g) z RPO ≤ 15 min + daily snapshot + weekly full export offsite. Sam daily backup = utrata nawet 24h zamówień — za mało.
+- **Strona treściowa**: daily automated + retention 30 dni + weekly export do S3/R2 (niezależny cloud) wystarcza.
+- **3-2-1 + odporność na kompromitację**: kopia offsite na OSOBNYM koncie/kluczu (prod credentials NIE mogą kasować backupów), wersjonowanie + immutability (S3 Object Lock) dla kopii tygodniowej, szyfrowanie at rest.
 - **Assets** (Cloudinary/R2): replikacja na drugi region co 24h. **Code**: GitHub + mirror raz w miesiącu.
-- **Test restore co kwartał** (staging rebuild z backupu). „Nieprzetestowany backup = brak backupu".
+- **Test restore co kwartał** (staging rebuild z backupu) — mierz czas odtworzenia i zapisuj w runbooku (realny RTO). „Nieprzetestowany backup = brak backupu".
+- **Dead-man's switch**: Sentry Cron Monitoring / healthchecks.io na backup joby i reconcile — alert gdy job się NIE wykonał (crony padają cicho; alarmuj na brak wykonania, nie tylko na błąd).
+
+## Migracje DB (zero utraty danych)
+- Wzorzec **expand → migrate → contract**: dodaj nową kolumnę/tabelę, przełącz kod, starą usuń w OSOBNYM deployu.
+- ZAKAZ DROP/RENAME kolumny w tym samym deployu co kod, który jej używa.
+- Snapshot/backup PRZED każdą migracją prod. Rollback migracji opisany w PR.
+- Migracje wykonuje pipeline CI/CD, nie ręczna komenda z lokalnej maszyny (patrz 02-agent-discipline).
 
 ## Disaster recovery
 - **Vercel pada**: runbook migracji na Cloudflare Pages/Netlify, DNS TTL ≤ 5 min, RTO 2h. **DB host pada**: failover Neon, RTO 30 min.
