@@ -1,8 +1,8 @@
 ---
 description: R3F, shadery, sceny 3D, postprocessing
 globs:
-  - "src/components/3d/**"
-  - "src/**/*.glsl"
+  - "**/src/components/3d/**"
+  - "**/*.glsl"
 updated: 2026-05
 ---
 

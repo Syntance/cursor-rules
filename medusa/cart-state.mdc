@@ -1,10 +1,10 @@
 ---
 description: Cart store (Zustand) — stan koszyka po stronie klienta
 globs:
-  - "apps/storefront/src/providers/CartProvider.tsx"
-  - "apps/storefront/src/stores/cart.ts"
-  - "apps/storefront/src/hooks/use-cart*.ts"
-  - "apps/storefront/src/components/cart/**"
+  - "**/providers/CartProvider.tsx"
+  - "**/stores/cart.ts"
+  - "**/hooks/use-cart*.ts"
+  - "**/components/cart/**"
 ---
 
 ## Kontrakt store'u

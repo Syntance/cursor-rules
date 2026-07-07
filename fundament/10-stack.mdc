@@ -26,7 +26,8 @@ updated: 2026-05
 - **OGL** — lightweight WebGL gdy Three.js to overkill (sam shader na tle, bez sceny).
 
 ## Page transitions
-- **View Transitions API** — `document.startViewTransition()` na route change. Native, żadnej Barba.js.
+- **React `<ViewTransition>`** + `experimental.viewTransition` w `next.config` (patrz 00-core rozstrzygnięcia). Native, żadnej Barba.js.
+- Ręczny `document.startViewTransition()` TYLKO poza nawigacją routera (zmiana motywu, galeria in-place) — na route change nie wpina się w router klienta Next.
 
 ## OG / meta
 - **@vercel/og** + **Satori** — dynamic OG images per page.

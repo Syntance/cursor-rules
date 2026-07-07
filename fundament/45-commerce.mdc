@@ -20,6 +20,7 @@ updated: 2026-05
 - Galeria: zoom, wiele zdjęć, AVIF + blur. 3D/AR tylko gdy realnie pomaga decyzji (patrz 40-3d „when NOT to use").
 - Dostępność wariantów/stanu magazynu na żywo. Out-of-stock → „Powiadom mnie", nie martwy przycisk.
 - Dowód: oceny/recenzje (z `Review` JSON-LD), trust (zwroty, wysyłka, bezpieczne płatności).
+- GPSR: dane producenta / osoby odpowiedzialnej w UE przy produkcie + ostrzeżenia (patrz 56-legal).
 - `Product` + `Offer` + `AggregateRating` JSON-LD. Breadcrumbs + `BreadcrumbList`.
 
 ## Koszyk i checkout

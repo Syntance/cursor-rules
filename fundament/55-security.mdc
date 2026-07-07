@@ -1,12 +1,12 @@
 ---
 description: Bezpieczeństwo — OWASP, auth, walidacja, CSP/headers, rate limit, supply chain
 globs:
-  - "src/app/**/route.ts"
-  - "src/**/actions.ts"
-  - "src/**/actions/**"
-  - "src/middleware.ts"
-  - "src/lib/**/*.ts"
-  - "next.config.ts"
+  - "**/app/**/route.ts"
+  - "**/src/**/actions.ts"
+  - "**/src/**/actions/**"
+  - "**/middleware.ts"
+  - "**/src/lib/**/*.ts"
+  - "**/next.config.ts"
 updated: 2026-05
 ---
 
@@ -18,7 +18,7 @@ updated: 2026-05
 ## Input validation
 - ZAWSZE **Zod** na granicy: Server Action input, API route body, URL params, webhook payload, form.
 - Jeden schema client + server (`src/lib/validation/*.ts`). Nigdy dwie wersje. NEVER `as unknown as T` jako escape od walidacji.
-- `dangerouslySetInnerHTML` TYLKO po `DOMPurify.sanitize(html, { ALLOWED_TAGS: ['b','i','a','p','br'] })`. Na serwerze DOMPurify wymaga DOM — użyj `isomorphic-dompurify` (jsdom), nie gołego `dompurify`.
+- `dangerouslySetInnerHTML` TYLKO po sanityzacji. Proste pola tekstowe (order notes, komentarze): lekki strip-HTML (`sanitize-order-notes.ts` z `Syntance/moduly`), backend re-sanityzuje. Rich text (Tiptap): `DOMPurify.sanitize(html, { ALLOWED_TAGS: [...] })` client-side przed zapisem + walidacja schematu server-side. NIGDY `isomorphic-dompurify` na ścieżce SSR/edge (jsdom → crash `ERR_REQUIRE_ESM` na Vercel/Next 16/Turbopack) — dopuszczalny wyłącznie w czystym środowisku Node (patrz medusa/46-checkout-standards §5).
 - URL od usera: walidacja schemy (`https:` only), blacklist `javascript:`, `data:`, `file:`.
 - Rich text (Tiptap): sanityzuj PRZED zapisem do DB (protection at rest), nie tylko przed render.
 
@@ -41,10 +41,10 @@ updated: 2026-05
 ## Auth
 - **Better Auth** lub **NextAuth v5**. Nigdy custom JWT handling.
 - Password: Argon2id, min 12 znaków, zxcvbn strength check client-side.
-- MFA: TOTP + backup codes. Admin panel = MFA obowiązkowo.
+- MFA: passkeys (WebAuthn — Better Auth passkey plugin) preferowane; TOTP + backup codes jako fallback. Panel admina na prod = MFA/passkey obowiązkowo (albo dostęp za Cloudflare Access / IP allowlist).
 - Session: server-side (DB-backed) dla webu, JWT tylko dla API tokens. Rotacja co 24h, logout = hard delete.
 - `__Host-session` cookie: httpOnly + secure + sameSite strict + path `/` + BEZ `domain`.
-- Login rate limit: 5 prób / 15 min per IP + per email → CAPTCHA (hCaptcha, nie reCAPTCHA — tracker).
+- Login rate limit: 5 prób / 15 min per IP + per email → CAPTCHA (Cloudflare Turnstile — zero-cookie, GDPR-safe; NIGDY reCAPTCHA — tracker).
 
 ## Rate limiting (Upstash Ratelimit w middleware)
 - Public API: 60 req/min per IP. Auth: 5 / 15 min per IP + email. Mutacje: 30 / min per session.
@@ -62,6 +62,7 @@ updated: 2026-05
 
 ## HTTP headers (single source — `next.config.ts` / middleware)
 - **CSP**: `script-src` nonce-based + `'strict-dynamic'`, NIE `'unsafe-inline'`. ALE `style-src` MUSI mieć `'unsafe-inline'` (lub hashe) — Framer Motion/GSAP wstrzykują inline `style` (patrz 00-core rozstrzygnięcia).
+- **CSP pełny szkielet**: `default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'` (clickjacking) + `form-action 'self'` (+ domeny bramek w checkout — chroni submit formularza przed przejęciem) + `upgrade-insecure-requests`.
 - Middleware generuje per-request nonce → `<script nonce>`. Start: `Content-Security-Policy-Report-Only` przez tydzień → enforcement.
 - `report-to` → Sentry security integration. **Trusted Types**: `require-trusted-types-for 'script'` (Chrome/Edge).
 - **HSTS**: `max-age=63072000; includeSubDomains; preload`.
@@ -81,6 +82,7 @@ updated: 2026-05
 - **socket.dev** PR integration — blokuje merge gdy dep ma malware risk. **pnpm audit** w CI (fail on critical).
 - Renovate: minor/patch grupowane tygodniowo, major osobno z review. `pnpm why <pkg>` PRZED każdym `add`.
 - `ignore-scripts=true` w `.npmrc`, unblock per-package. **npm provenance** dla własnych paczek.
+- pnpm **`minimumReleaseAge`** ≥ 4–7 dni (cooldown na świeże wersje paczek — ochrona przed falami ataków npm). GitHub Actions pinowane po SHA commita, nie po tagu.
 
 ## API security
 - Webhook signatures: HMAC-SHA256, constant-time compare (`crypto.timingSafeEqual`), NEVER `===` na digest.

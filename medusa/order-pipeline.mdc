@@ -1,9 +1,9 @@
 ---
 description: Post-order — subscribery, workflows, email/faktura/analytics
 globs:
-  - "apps/backend/src/subscribers/**"
-  - "apps/backend/src/workflows/**"
-  - "apps/backend/src/modules/notification/**"
+  - "**/backend/src/subscribers/**"
+  - "**/backend/src/workflows/**"
+  - "**/backend/src/modules/notification/**"
 ---
 
 ## Kontrakt
@@ -31,7 +31,7 @@ Pipeline: `order.placed` → send-confirmation-email | create-invoice (Fakturown
 - Fakturownia pada 30 min → cały `order.placed` fails → emaili nie ma. Izolowane subscribery = email leci, faktura retryuje.
 - Pixel + CAPI bez `event_id` → Meta liczy 2× → raport CAC połowę wartości. Deduplikacja przez `order.id`.
 
-## KSeF — Krajowy System e-Faktur (obowiązek PL od 01.02.2026)
+## KSeF — Krajowy System e-Faktur (obowiązek PL: od 01.02.2026 najwięksi podatnicy > 200 mln PLN, od 01.04.2026 pozostali — obowiązek już trwa)
 - **Scope**: każda faktura B2B (klient z NIP) MUSI iść przez KSeF. B2C (konsument bez NIP) — nadal klasyczna faktura PDF.
 - **Integracja**: **Fakturownia** (certyfikowany dostawca KSeF) albo **inFakt**. Handlują podpis + wysyłkę + UPO.
 - **Flow w Medusa subscribers**:

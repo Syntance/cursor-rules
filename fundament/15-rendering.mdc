@@ -1,9 +1,9 @@
 ---
 description: Rendering i dane w Next.js 16 — RSC, caching, Server Actions, data fetching
 globs:
-  - "src/**/*.ts"
-  - "src/**/*.tsx"
-  - "next.config.ts"
+  - "**/src/**/*.ts"
+  - "**/src/**/*.tsx"
+  - "**/next.config.ts"
 updated: 2026-05
 ---
 

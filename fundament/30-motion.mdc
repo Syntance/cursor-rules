@@ -1,9 +1,9 @@
 ---
 description: Motion vocabulary — animacje, scroll, transitions
 globs:
-  - "src/**/*.tsx"
-  - "src/lib/gsap.ts"
-  - "src/lib/theatre.ts"
+  - "**/src/**/*.tsx"
+  - "**/src/lib/gsap.ts"
+  - "**/src/lib/theatre.ts"
 updated: 2026-05
 ---
 
@@ -13,6 +13,9 @@ updated: 2026-05
 3. GSAP + ScrollTrigger dla timeline, scrub, pin, SplitText.
 4. Theatre.js dla scripted cinematics (audio-sync, multi-timeline).
 5. R3F dla 3D.
+
+## Motion identity (per projekt)
+- Brief definiuje 2–3 sygnaturowe ruchy (easing + reveal pattern + czas) — używaj ich konsekwentnie w całym projekcie. Losowa mieszanka easingów = brak tożsamości.
 
 ## Easingi
 - UI reveal: `power3.out` / `cubic-bezier(0.22, 1, 0.36, 1)`.
@@ -27,8 +30,8 @@ updated: 2026-05
 - Page transition: 400–800ms.
 - Nigdy > 1800ms bez pauzy / anticipation.
 
-## Page transitions (View Transitions API)
-- `document.startViewTransition()` na każdym route change.
+## Page transitions (View Transitions)
+- Route change: React `<ViewTransition>` + `experimental.viewTransition` w `next.config` — NIE ręczny `document.startViewTransition()` (nie wpina się w router klienta Next; patrz 00-core rozstrzygnięcia). Ręczny tylko poza nawigacją (zmiana motywu, galeria in-place).
 - `::view-transition-old(root)` + `::view-transition-new(root)` choreography — nie tylko fade, minimum mask-reveal albo slide + scale.
 - `viewTransitionName` na wspólnych elementach (hero image → product detail) — native FLIP.
 

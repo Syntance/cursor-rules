@@ -52,6 +52,7 @@ updated: 2026-05
 - Kod na preview + przetestowany w incognito.
 - **Lighthouse**: Performance ≥ 90, Accessibility = 100, Best Practices ≥ 95, SEO = 100 (na zmienionych stronach).
 - A11y manual: keyboard nav + min. 1 screen reader. Visual regression passing.
+- Test na fizycznym iPhone Safari (scroll, animacje, 100dvh, widgety bramek/InPost) — emulator nie wystarcza.
 - Code review od drugiej osoby (lub self-review po 24h dla solo). ADR jeśli decyzja nietrywialna. Changeset entry.
 
 ## Monorepo — Turborepo (gdy > 1 app)
@@ -67,7 +68,7 @@ updated: 2026-05
 - Każdy fallback: user copy PL + retry button + Sentry autoreport. NEVER globalny `try/catch` dookoła całego drzewa.
 
 ### Timeouty (każdy external call, bez wyjątków)
-- `fetch(url, { signal: AbortSignal.timeout(5_000) })`. External API 5s, upload 30s, webhook outgoing 10s.
+- `fetch(url, { signal: AbortSignal.timeout(5_000) })`. External API 5s, upload 30s, webhook outgoing 10s. Wyjątek: self-hosted backend z cold startem (Railway/Medusa) — 30s (patrz medusa/00-ecom-core).
 - DB query 10s max (powyżej = brak indeksu). Vercel function: split gdy przekracza limit planu.
 
 ### Retry / circuit breaker

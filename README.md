@@ -6,12 +6,15 @@ Reguły Cursora (`.mdc`) dla projektów Syntance. Źródło prawdy — konsumowa
 
 ```
 cursor-rules/
-├── fundament/          # 15 reguł — dowolny projekt Next.js + React (+ konwersja, rendering, e-commerce)
+├── fundament/          # 18 reguł — dowolny projekt Next.js + React (+ konwersja, strategia B2B, rendering, e-commerce)
 │   ├── 00-core.mdc
+│   ├── 02-agent-discipline.mdc # dyscyplina agenta: weryfikacja, root cause, akcje destrukcyjne, ochrona danych
+│   ├── 05-graphify.mdc # graph-first debug/refaktor/planowanie (kontrola kosztów agentów)
 │   ├── 10-stack.mdc
 │   ├── 15-rendering.mdc
 │   ├── 20-design.mdc
 │   ├── 25-conversion.mdc
+│   ├── 26-strategy-b2b.mdc
 │   ├── 30-motion.mdc
 │   ├── 40-3d.mdc
 │   ├── 45-commerce.mdc
@@ -22,7 +25,7 @@ cursor-rules/
 │   ├── 70-copy.mdc
 │   ├── 80-assets.mdc
 │   └── 90-release.mdc
-├── medusa/             # 9 reguł — projekty ecommerce na Medusa v2
+├── medusa/             # 11 reguł — projekty ecommerce na Medusa v2 (w tym checkout standards)
 ├── magazyn/            # 3 reguły — panel „Magazyn" + CMS + pliki (moduł Syntance/moduly)
 │   ├── magazyn-panel.mdc
 │   ├── cms-content.mdc
@@ -53,7 +56,7 @@ Jeśli patch zwróci błąd uprawnień do `/Applications/Cursor.app`:
 sudo node /tmp/cursor-rules/scripts/patch-cursor-user-rules.js
 ```
 
-Potem w Cursorze: **Cmd+Shift+P → Developer: Reload Window** → **Settings → Rules → User** (powinno być 15 User File Rules).
+Potem w Cursorze: **Cmd+Shift+P → Developer: Reload Window** → **Settings → Rules → User** (powinno być 18 User File Rules).
 
 ### Windows
 
@@ -78,7 +81,7 @@ Reguły muszą leżeć w **`~/.cursor/rules/`** (nie w `~/.cursor/` ani w repo p
 
 ### Strona (portfolio / landing / content)
 
-Tylko fundament (15 reguł):
+Tylko fundament (18 reguł):
 
 ```bash
 pnpm dlx degit Syntance/cursor-rules/fundament .cursor/rules
@@ -101,17 +104,38 @@ Dodatkowo, gdy wpinasz pakiet `magazyn` (panel admina + CMS na `Store.metadata`)
 pnpm dlx degit Syntance/cursor-rules/magazyn .cursor/rules
 ```
 
+## Checkout standards
+
+Checkout i bramki płatnicze mają osobny, twardy kontrakt (utwardzony na incydentach produkcyjnych) — by każdy nowy sklep dostawał TEN SAM, zabezpieczony checkout:
+
+- `medusa/46-checkout-standards.mdc` — skonsolidowany standard: 5 torów domknięcia płatności, kontrakt adaptera bramki, idempotencja sesji, self-healing reconcile (endpoint + cron niezależny od workera), security/CSP, compliance PL/EU, Turnstile za flagą, „Częste bugi i fixy".
+- `medusa/payment-flow.mdc` — moduł providera (`modules/<provider>`), webhooki (wbudowana deduplikacja Medusa v2), maszyna stanów, reconcile.
+- `medusa/checkout-forms.mdc` — formularz: Zod/RHF, double-submit guard, slow-state, sanitize bez dompurify, Turnstile gated.
+- `medusa/checkout-clone-playbook.mdc` — krok po kroku jak postawić checkout kopiując z `Syntance/moduly` + manifest ENV + checklist deploy.
+
+Kod referencyjny (kopiuj stamtąd): `Syntance/moduly` (`packages/commerce`, `apps/backend`).
+
+## Narzędzia MCP dla Cursora (wymagane przez reguły)
+
+Reguły odwołują się do narzędzi — podepnij w Cursor Settings → MCP:
+
+- **21st.dev Magic** (`/ui "opis"`) — generowanie komponentów UI (10-stack).
+- **context7** — aktualne API bibliotek zamiast zgadywania wersji (02-agent-discipline).
+- **Playwright MCP** — live E2E i testy a11y (60-quality).
+- **Chrome DevTools MCP** — pętla audytu PageSpeed / Core Web Vitals (50-perf-a11y).
+
 ## Aktualizacje
 
 - **User Rules:** ponownie uruchom `scripts/sync-user-rules.sh` (lub `.ps1` na Windows).
 - **Project Rules:** re-run `degit` (nadpisuje lokalne) lub merge ręczny.
+- **05-graphify:** źródłem prawdy jest `fundament/05-graphify.mdc`; `.cursor/rules/graphify.mdc` (kopia dla tego repo) synchronizuj przy każdej zmianie.
 
 Zmiany filozofii → PR do tego repo + ADR w `docs/adr/`.
 
 ## Jak reguły działają w Cursorze
 
 - Pliki `.mdc` z frontmatterem YAML.
-- `alwaysApply: true` — reguła aktywna zawsze (tylko `00-core` w fundament).
+- `alwaysApply: true` — reguła aktywna zawsze (`00-core` i `05-graphify` w fundament).
 - `globs: [...]` — reguła gdy pasujące pliki są otwarte.
 - `description` bez `alwaysApply` — **Apply Intelligently** (agent ładuje gdy temat pasuje).
 

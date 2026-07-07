@@ -1,9 +1,9 @@
 ---
 description: Inventory — stock, reservations, race conditions
 globs:
-  - "apps/backend/src/modules/inventory-*/**"
-  - "apps/backend/src/workflows/inventory-*/**"
-  - "apps/backend/src/subscribers/stock-*.ts"
+  - "**/backend/src/modules/inventory-*/**"
+  - "**/backend/src/workflows/inventory-*/**"
+  - "**/backend/src/subscribers/stock-*.ts"
 ---
 
 ## Medusa v2 Inventory Module

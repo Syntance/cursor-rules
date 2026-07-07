@@ -41,6 +41,7 @@ JWT Medusa Admin w cookie httpOnly. Pakiet wzorcowy: `Syntance/moduly`.
   `NEXT_PUBLIC_*` dla sekretu/tokenu.
 - Operacje **destrukcyjne**: `ConfirmDialog` (nie `window.confirm`) + `recordAudit(...)`.
 - **Rate-limit logowania** (Redis/Upstash, fail-open bez konfiguracji).
+- **MFA/passkey na prod**: panel wystawiony publicznie MUSI mieć drugi czynnik (passkey/TOTP) LUB dostęp za Cloudflare Access / IP allowlist. Allowlist e-maili + rate-limit nie wystarczają same (patrz 55-security).
 - Redirect przy braku/utracie sesji → route czyści stale cookie i przekierowuje na ekran
   logowania (bez 404 i bez pętli).
 
@@ -69,7 +70,7 @@ export async function saveXAction(input: unknown): Promise<ActionState> {
 ```
 
 ## Roadmap (świadomie nie-MVP)
-- 2FA/MFA, pełny RBAC (viewer/editor/admin), soft-delete + kosz, zarządzanie sesjami,
+- Pełny RBAC (viewer/editor/admin), soft-delete + kosz, zarządzanie sesjami,
   audit log w dedykowanej tabeli (zamiast logów), IP allowlist.
 
 ## Pre-merge

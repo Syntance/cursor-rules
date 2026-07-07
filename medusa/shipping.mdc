@@ -1,9 +1,9 @@
 ---
 description: Shipping — dostawcy, paczkomaty, webhooki statusu
 globs:
-  - "apps/backend/src/modules/shipping-*/**"
-  - "apps/storefront/src/components/checkout/ShippingStep.tsx"
-  - "apps/backend/src/workflows/fulfillment-*/**"
+  - "**/backend/src/modules/shipping-*/**"
+  - "**/components/checkout/ShippingStep.tsx"
+  - "**/backend/src/workflows/fulfillment-*/**"
 ---
 
 ## Kontrakt providera
