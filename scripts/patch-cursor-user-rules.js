@@ -29,6 +29,14 @@ function findCursorMainJs() {
         )
       );
     }
+    if (process.env.ProgramFiles) {
+      candidates.push(
+        path.join(
+          process.env.ProgramFiles,
+          "Cursor/resources/app/extensions/cursor-agent-exec/dist/main.js"
+        )
+      );
+    }
   } else if (process.platform === "darwin") {
     candidates.push(
       "/Applications/Cursor.app/Contents/Resources/app/extensions/cursor-agent-exec/dist/main.js",
@@ -54,7 +62,8 @@ function findCursorMainJs() {
   return candidates.find((p) => fs.existsSync(p)) ?? null;
 }
 
-const cursorExec = findCursorMainJs();
+const override = process.env.CURSOR_MAIN_JS;
+const cursorExec = override && fs.existsSync(override) ? override : findCursorMainJs();
 
 if (!cursorExec) {
   console.error("CURSOR_EXEC_NOT_FOUND");
@@ -62,8 +71,7 @@ if (!cursorExec) {
   process.exit(1);
 }
 
-const override = process.env.CURSOR_MAIN_JS;
-const target = override && fs.existsSync(override) ? override : cursorExec;
+const target = cursorExec;
 
 const content = fs.readFileSync(target, "utf8");
 

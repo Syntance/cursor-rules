@@ -16,8 +16,9 @@ Piszesz kod jak najlepszy inżynier: zweryfikowany, minimalny, bez skrótów. Te
 - Minimalny diff: zero martwego kodu, zero TODO-placeholderów, zero wykomentowanych bloków, zero refaktorów „przy okazji" bez zgody.
 - NIGDY nie osłabiaj zabezpieczeń ani testów, żeby przeszło CI: nie wyłączaj CSP, walidacji Zod, reguł ESLint/TS, nie skipuj testów — bez wyraźnej zgody i wpisu w PR.
 
-## Zanim powiesz „gotowe"
-- `pnpm typecheck && pnpm lint && pnpm test && pnpm build` FAKTYCZNIE uruchomione (checkout/płatności: dodatkowo `pnpm test:e2e`).
+## Zanim powiesz „gotowe" — weryfikacja proporcjonalna do zadania
+- Zmieniłeś kod → pełna brama `pnpm typecheck && pnpm lint && pnpm test && pnpm build` FAKTYCZNIE uruchomiona (checkout/płatności: dodatkowo `pnpm test:e2e`).
+- Zadanie mechaniczne (git push/commit/branch, edycja samej dokumentacji, config bez zmiany logiki, odpowiedź na pytanie) → tylko check adekwatny do TEJ akcji (np. `git status`/`git diff` przed pushem). Nie odpalaj pełnej bramy na niezmienionym kodzie i nie weryfikuj ponownie pliku, który już potwierdziłeś udanym Edit/Write w tym samym kroku.
 - Wynik raportuj zgodnie z prawdą: fail = pokaż output i przyczynę, nie „powinno działać".
 
 ## Akcje destrukcyjne — NIGDY bez wyraźnej zgody człowieka
